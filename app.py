@@ -15,6 +15,8 @@ import os
 
 
 
+os.environ["LANGCHAIN_TRACING_V2"] = "false"
+os.environ["CHROMADB_DISABLE_TELEMETRY"] = "1"
 HF_TOKEN = st.secrets["my_secrets"]["huggingface_key"]
 embeddings=HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
@@ -55,7 +57,12 @@ if api_key:
     # Split and create embeddings for the documents
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=5000, chunk_overlap=500)
         splits = text_splitter.split_documents(documents)
-        vectorstore = Chroma.from_documents(documents=splits, embedding=embeddings,  persist_directory="./chroma_db" )
+        vectorstore = Chroma.from_documents(
+            documents=splits,
+            embedding=embeddings,
+            collection_name="rag-pdf-chat",
+            client_settings={"chroma_db_impl": "duckdb+parquet", "persist_directory": ":memory:"}
+        )
         retriever = vectorstore.as_retriever()    
 
         contextualize_q_system_prompt=(
