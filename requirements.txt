@@ -8,3 +8,4 @@ langchain_huggingface
 langchain_text_splitters
 python-dotenv
 chromadb
+protobuf==4.23.4
