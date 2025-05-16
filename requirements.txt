@@ -7,5 +7,5 @@ langchain_groq
 langchain_huggingface
 langchain_text_splitters
 python-dotenv
-chromadb
 protobuf==4.23.4
+chromadb==0.4.24
