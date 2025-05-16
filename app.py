@@ -12,7 +12,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import PyPDFLoader
 import os
-
+from chromadb.config import Settings
 
 
 os.environ["LANGCHAIN_TRACING_V2"] = "false"
@@ -27,6 +27,13 @@ st.write("Upload Pdf's and chat with their content")
 
 ## Input the Groq API Key
 api_key=st.text_input("Enter your Groq API key:",type="password")
+
+client_settings = Settings(
+    chroma_db_impl="duckdb+parquet",
+    persist_directory=".chroma",  # or ":memory:" if you don’t want persistence
+    anonymized_telemetry=False
+)
+
 
 ## Check if groq api key is provided
 if api_key:
@@ -60,8 +67,8 @@ if api_key:
         vectorstore = Chroma.from_documents(
             documents=splits,
             embedding=embeddings,
-            collection_name="rag-pdf-chat",
-            client_settings={"chroma_db_impl": "duckdb+parquet", "persist_directory": ":memory:"}
+            client_settings=client_settings,
+            collection_name="pdf-chat"
         )
         retriever = vectorstore.as_retriever()    
 
