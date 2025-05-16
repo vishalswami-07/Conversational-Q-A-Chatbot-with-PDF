@@ -6,3 +6,4 @@ langchain_groq
 langchain_huggingface
 faiss-cpu
 python-dotenv
+pypdf
