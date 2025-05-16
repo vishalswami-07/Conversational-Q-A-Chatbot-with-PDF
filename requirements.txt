@@ -1,12 +1,11 @@
 streamlit
 langchain
-langchain_chroma
 langchain_community
 langchain_core
+langchain_chroma
 langchain_groq
 langchain_huggingface
-langchain_text_splitters
-python-dotenv
-protobuf==4.23.4
 chromadb==0.4.24
+protobuf==4.23.4
 numpy==1.23.5
+python-dotenv
