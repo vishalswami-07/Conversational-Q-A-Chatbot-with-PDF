@@ -9,3 +9,4 @@ langchain_text_splitters
 python-dotenv
 protobuf==4.23.4
 chromadb==0.4.24
+numpy==1.23.5
